@@ -24,11 +24,9 @@ pub mod time_driver_impl;
 /// - `WFI` instruction will not wake up from disabled interrupts
 /// - Either `WFITOWFE` or `SEVONPEND` must be enabled for proper wake-up behavior
 pub unsafe fn init() {
+    #[cfg(feature = "rt-wfi")]
     crate::pac::PFIC.sctlr().modify(|w| w.set_sevonpend(true));
 
-    #[cfg(all(qingke_v4, not(time_driver_timer)))]
-    time_driver_impl::init();
-
-    #[cfg(time_driver_timer)]
+    #[cfg(any(qingke_v4, time_driver_timer))]
     critical_section::with(|cs| time_driver_impl::init(cs));
 }

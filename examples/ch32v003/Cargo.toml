@@ -11,17 +11,16 @@ ch32-hal = { path = "../../", features = [
     "time-driver-tim2",
     "rt",
 ] }
-embassy-executor = { version = "0.6.0", features = [
-    "integrated-timers",
+embassy-executor = { version = "0.7.0", features = [
     "arch-spin",
     "executor-thread",
-    "task-arena-size-128", # or better use nightly, but fails on recent Rust versions
+    "task-arena-size-256", # or better use nightly, but fails on recent Rust versions
 ] }
-embassy-time = { version = "0.3.0" }
+embassy-time = "0.4.0"
 
 # This is okay because we should automatically use whatever ch32-hal uses
 qingke = "*"
-qingke-rt = { version = "*", features = ["highcode"] }
+qingke-rt = { version = "0.5.0", features=["highcode"] }
 
 
 panic-halt = "1.0"
@@ -35,4 +34,7 @@ micromath = { version = "2.1.0", features = ["num-traits"] }
 [profile.release]
 strip = false   # symbols are not flashed to the microcontroller, so don't strip them.
 lto = true
-opt-level = "s" # Optimize for size.
+opt-level = "z" # Optimize for size.
+
+[profile.dev]
+overflow-checks = false

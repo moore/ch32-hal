@@ -26,15 +26,17 @@ embedded-hal-02 = { package = "embedded-hal", version = "0.2.6", features = [
 ] }
 embedded-hal = { package = "embedded-hal", version = "1.0" }
 embedded-hal-async = "1.0.0"
+embedded-can = "0.4.1"
 
 critical-section = { version = "1.2.0" }
 defmt = { version = "0.3.8", optional = true }
 
 embassy-sync = { version = "0.6.0" }
 embassy-futures = { version = "0.1.1" }
-embassy-time-driver = { version = "0.1.0", optional = true }
-embassy-time = { version = "0.3.2", optional = true }
-embassy-usb-driver = "0.1.0"
+embassy-time-queue-utils = { version = "0.1", optional = true }
+embassy-time-driver = { version = "0.2.0", optional = true }
+embassy-time = { version = "0.4.0", optional = true }
+embassy-usb-driver = "0.2.0"
 
 nb = "1.1.0"
 embedded-hal-nb = "1.0.0"
@@ -42,6 +44,7 @@ futures = { version = "0.3.31", default-features = false, features = [
     "async-await",
 ] }
 
+bitmaps = { version = "3", default-features = false }
 rand_core = "0.6.3"
 sdio-host = "0.5.0"
 embassy-hal-internal = "0.2.0"
@@ -56,9 +59,10 @@ quote = "1.0"
 
 [features]
 default = ["embassy", "rt"]
-rt = ["dep:qingke-rt"]
+rt = ["dep:qingke-rt", "rt-wfi"]
 highcode = ["qingke-rt/highcode"]
 embassy = [
+    "dep:embassy-time-queue-utils",
     "dep:embassy-time-driver",
     "dep:embassy-time",
 ]
@@ -88,6 +92,7 @@ time-driver-tim8 = ["_time-driver"]
 time-driver-tim9 = ["_time-driver"]
 ## Use TIM10 as time driver
 time-driver-tim10 = ["_time-driver"]
+rt-wfi = []
 
 # Chip-selection features
 

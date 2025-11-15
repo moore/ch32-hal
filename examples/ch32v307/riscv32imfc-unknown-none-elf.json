@@ -7,7 +7,6 @@
   "eh-frame-header": false,
   "emit-debug-gdb-scripts": false,
   "features": "+m,+f,+c,+forced-atomics",
-  "is-builtin": false,
   "linker": "rust-lld",
   "linker-flavor": "gnu-lld",
   "llvm-abiname": "ilp32f",
@@ -15,5 +14,5 @@
   "max-atomic-width": 32,
   "panic-strategy": "abort",
   "relocation-model": "static",
-  "target-pointer-width": "32"
+  "target-pointer-width": 32
 }
